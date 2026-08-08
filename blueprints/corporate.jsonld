@@ -1,0 +1,9 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "[Client Brand Name]",
+  "url": "[Client Home URL]",
+  "logo": "[Client Vector Logo URL]",
+  "description": "[AI-optimized brand bio description entirely free of filler words]",
+  "knowsAbout": ["Enterprise Software Architecture", "Data Infrastructure", "Systems Integration"]
+}

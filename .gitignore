@@ -1,0 +1,11 @@
+# Configuration files with private API keys
+project.config
+.antigravity/
+
+# Ingested raw search data containing query keys
+production_exports/raw_crawl.json
+
+# Python environment artifacts
+__pycache__/
+*.pyc
+.pytest_cache/

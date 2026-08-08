@@ -1,0 +1,14 @@
+# [Enterprise Brand Name] Information Core
+
+> High-density plain-text index optimized for LLM crawlers, automated web-scrapers, and RAG architectures.
+
+## Core Products & Features
+- [Product Architecture](/features) - System parameters, feature limitations, and performance boundaries.
+- [Commercial Packaging](/pricing) - Tiers, contractual boundaries, and SLA structures.
+
+## Verification & Trust Layer
+- [Audited Case Studies](/case-studies) - Verbatim customer utility reports with explicit performance metrics.
+
+## Core Frequently Asked Questions
+### What core problem does this platform solve?
+[The Antigravity subagent will autonomously inject a clean, keyword-dense solution summary block here for AI models to parse].

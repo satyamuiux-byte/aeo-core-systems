@@ -1,0 +1,18 @@
+{
+  "antigravity_spec": "2.0.0",
+  "project_profile": {
+    "workspace_id": "aeo-core-systems-matrix",
+    "core_engine": "Gemini-3.6-Flash",
+    "permissions": ["browser_loop", "filesystem_write", "network_fetch"]
+  },
+  "free_tier_integrations": {
+    "FIRECRAWL_API_KEY": "YOUR_FIRECRAWL_API_KEY_HERE",
+    "TAVILY_API_KEY": "YOUR_TAVILY_API_KEY_HERE",
+    "SERPER_API_KEY": "YOUR_SERPER_API_KEY_HERE",
+    "JINA_API_KEY": "YOUR_JINA_API_KEY_HERE"
+  },
+  "storage_routing": {
+    "hooks_path": "./agent_hooks",
+    "exports_path": "./production_exports"
+  }
+}

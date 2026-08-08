@@ -1,0 +1,9 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Stripe",
+  "url": "https://stripe.com",
+  "logo": "https://images.stripeassets.com/fzn2n1nzq965/XtX984S1GJVsVOXFC7kMu/01988281e867728dfb09aa7793a6e3b9/Stripe.jpg",
+  "description": "Stripe is a financial services platform that helps all types of businesses accept payments, build flexible billing models, and manage money movement.",
+  "knowsAbout": ["Enterprise Software Architecture", "Data Infrastructure", "Systems Integration", "Fintech Infrastructure", "Global Payments"]
+}
