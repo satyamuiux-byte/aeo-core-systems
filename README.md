@@ -17,6 +17,15 @@ AI crawlers scrape websites but often fail to extract critical facts (pricing, l
 
 ---
 
+## 🛡️ The Intelligence Amplifier Philosophy
+
+This system is built under the core philosophy of **supervised agentic execution** and **Human-in-the-Loop (HITL)** governance:
+* **Empowering Team Strategy:** We do not replace human strategic thinking (Marketing leads, SEO managers, and operators control direction).
+* **Supervised Automation:** AI handles repetitive ingestion, parsing, and formatting tasks, freeing teams to focus on strategic positioning.
+* **HITL Quality Control:** All outputs (`llms.txt` and `corporate.jsonld`) pass through a structured review gate before deployment to ensure brand accuracy, quality, and consistency.
+
+---
+
 ## 🏗️ System Architecture: The 80/15/5 Pattern
 
 Built according to elite agentic system architecture patterns to ensure zero runtime code crashes, low API cost boundaries, and strict logical control:
