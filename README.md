@@ -6,9 +6,9 @@ Automated AEO research and structured-data pipeline for website ingestion, seman
 
 ## Overview
 
-Conventional websites contain valuable information, but that information is typically optimized for visual display and human readers. AI search engines, retrieval systems, and RAG (Retrieval-Augmented Generation) pipelines require clear, machine-readable structures to consistently index brand facts, product details, FAQ responses, and verification metrics.
+Conventional websites contain valuable information, but that information is typically optimized for visual display and human readers. AI search engines, retrieval systems, and RAG (Retrieval-Augmented Generation) pipelines require clear, machine-readable structures to consistently index brand facts, product details, FAQ responses, and other structured business information.
 
-Without structured context, crawlers and AI search systems may misrepresent company details or omit crucial brand data during user queries, leading to information gaps and citation deficits.
+Without structured context, crawlers and AI-search systems may inconsistently retrieve or represent important company information, creating information gaps in automated retrieval workflows.
 
 This project explores an automated workflow designed to:
 * Scrape website content into clean text
@@ -86,7 +86,7 @@ graph TD
 * **LLM / Reasoning Layer:** The AI assistant inside the IDE environment ingests the raw crawl data and applies the directives in `agent_hooks/aeo_pipeline.md` to map observations to the blueprint structures.
 * **Data / State Layer:** Manages configuration parameters in `project.config` and saves aggregated scraped payloads to `production_exports/raw_crawl.json`.
 * **Validation Layer:** Evaluates generated layouts against template blueprint schemas (`blueprints/llms.txt` and `blueprints/corporate.jsonld`).
-* **Output Layer:** Generates public-ready draft indexing files under the `production_exports/` staging directory.
+* **Output Layer:** Generates machine-readable draft assets under the `production_exports/` staging directory for human review before deployment.
 
 ---
 
@@ -95,7 +95,7 @@ graph TD
 A completed diagnostic run has been executed:
 * **Input:** Target URL `https://stripe.com` (Industry vertical: `SaaS`)
 * **Processing:** Running `scripts/fetch_data.py` scraped the homepage text and gathered SaaS transaction query trends. The AI agent compiled these observations against the blueprints.
-* **Output:** Generated a structured RAG index (`production_exports/llms.txt`) and organization metadata graph (`production_exports/corporate.jsonld`).
+* **Output:** Generated a structured `llms.txt` context/index file (`production_exports/llms.txt`) and an Organization JSON-LD draft (`production_exports/corporate.jsonld`).
 
 ---
 
