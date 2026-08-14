@@ -9,3 +9,8 @@ production_exports/raw_crawl.json
 __pycache__/
 *.pyc
 .pytest_cache/
+
+# Local workspace scratch files
+changes do.md
+conversation.md
+
