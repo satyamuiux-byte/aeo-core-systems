@@ -1,75 +1,62 @@
 # AEO Core Systems
 
-An automated AEO / AI-search intelligence pipeline for turning website content into structured, machine-readable brand context.
+Automated AEO research and structured-data pipeline for website ingestion, semantic gap analysis, and machine-readable brand context.
 
 ---
 
-## 📋 Portfolio Snapshot
+## Overview
 
-* **Problem:** AI search systems and RAG engines can struggle to consistently extract and retrieve correct brand, product, and compliance facts from conventional, non-semantic website HTML.
-* **Solution Built:** A supervised data pipeline that ingests domain content, queries search-intent gaps, and generates structured, machine-readable assets.
-* **Outputs:** 
-  * `llms.txt` (RAG-friendly crawler index)
-  * Organization JSON-LD (Schema.org compliant context graph)
-  * Structured raw search results (`raw_crawl.json`)
-* **Engineering Focus:** API orchestration, Jina/Firecrawl fallback routing, schema validation, and human-in-the-loop quality controls.
+Conventional websites contain valuable information, but that information is typically optimized for visual display and human readers. AI search engines, retrieval systems, and RAG (Retrieval-Augmented Generation) pipelines require clear, machine-readable structures to consistently index brand facts, product details, FAQ responses, and verification metrics.
 
----
+Without structured context, crawlers and AI search systems may misrepresent company details or omit crucial brand data during user queries, leading to information gaps and citation deficits.
 
-## 🎯 The Problem
+This project explores an automated workflow designed to:
+* Scrape website content into clean text
+* Research search queries and industry transactional intents
+* Identify content and entity definition gaps
+* Extract key organization parameters
+* Generate structured outputs (`llms.txt` and Organization JSON-LD schemas)
+* Enable manual validation and human review before publishing
 
-Conventional website content is structured and designed primarily for human readers. AI search engines and retrieval systems (such as Perplexity, ChatGPT Search, and Gemini) require clear, structured, and easily indexable data. Important details like product limitations, pricing structures, and trust metrics can be difficult for crawlers to parse consistently from HTML markup.
-
-This project implements an automated workflow to explore:
-* Programmatic website ingestion
-* Search-intent discovery
-* Semantic gap analysis
-* Structured entity extraction
-* Machine-readable format generation (`llms.txt` and JSON-LD)
-* Human review of draft metadata before live server deployment
-
-*Note: Generating these files does not guarantee citations or search placement. This project focuses strictly on building the diagnostic and metadata-generation tooling.*
+This project is an independent prototyping tool designed to support context optimization. It does not guarantee AI engine rankings, citation listings, or specific search placement changes.
 
 ---
 
-## 🧭 What It Does
+## What It Does
 
-The system executes a multi-stage pipeline:
+The system processes a target URL through the following stages:
 
 ```text
-Website 
-  → Crawl / Ingestion (Markdown extraction via Jina or Firecrawl)
-  → Search-Intent Research (Transactional query extraction via Tavily)
-  → Semantic Gap Analysis (Identifying missing brand definitions via Serper)
-  → Entity / Organization Extraction (Aligning schema inputs with scraped facts)
-  → Validation (Formatting outputs against blueprint templates)
-  → llms.txt & Organization JSON-LD (Draft generation)
-  → Human Review (Manual quality control before live web server sync)
+Website
+  ↓
+Research / Ingestion (Dual-engine web content extraction)
+  ↓
+Search / Intent Analysis (Retrieval of transactional queries and keywords)
+  ↓
+Semantic Gap Analysis (Identifying keyword deficits)
+  ↓
+Entity / Organization Extraction (Aligning brand facts with standard blueprints)
+  ↓
+Validation (Syntactic schema validation against template blueprints)
+  ↓
+Machine-readable outputs (Generating llms.txt and corporate.jsonld drafts)
+  ↓
+Human Review (Manual verification gate before live deployment)
 ```
 
-1. **Crawl / Ingestion:** Scrapes target domain content and strips out layout noise, formatting the text as clean Markdown.
-2. **Search-Intent Research:** Collects top long-tail transactional queries for the specified industry vertical.
-3. **Semantic Gap Analysis:** Flags keyword deficits and missing semantic definitions.
-4. **Entity Extraction:** Matches scraped organization parameters with Schema.org standards.
-5. **Draft Generation:** Writes the structured `llms.txt` index and JSON-LD metadata blocks.
-6. **Human Review:** Places files in a staging folder for the operator to approve.
+1. **Research / Ingestion:** Crawls target domains using Firecrawl with an automated Jina Reader fallback to scrape clean text.
+2. **Search / Intent Analysis:** Queries search endpoints for industry-specific intent query keywords.
+3. **Semantic Gap Analysis:** Analyzes raw scrape text to identify missing definitions.
+4. **Entity Extraction:** Maps raw text parameters to standard Schema.org entity definitions.
+5. **Validation:** Asserts data structure validity against template blueprints.
+6. **Machine-Readable Outputs:** Writes the final drafts to the staging folder.
+7. **Human Review:** Stages the output assets for manual verification.
 
 ---
 
-## 💡 Why It Matters
+## Architecture
 
-Implementing this technical workflow helps streamline content optimizations:
-* **Faster Technical Audits:** Automates content ingestion and search intent extraction.
-* **Consistent Fact Mapping:** Ensures company facts, products, and case studies are mapped systematically.
-* **Machine-Readable Context:** Bypasses visual noise by presenting crawlers with raw, high-density structured metadata.
-* **Repeatable Auditing:** Standardizes the diagnostic steps across different client URLs.
-* **Human-Controlled Deployment:** Ensures no AI-generated metadata is pushed to production without review.
-
----
-
-## 🏗️ Architecture
-
-The pipeline separates data retrieval (mechanical arm) from logic processing (AI reasoning agent) and template structure:
+The system coordinates mechanical data retrieval, template blueprint routing, and LLM reasoning validation:
 
 ```mermaid
 graph TD
@@ -92,24 +79,103 @@ graph TD
 
 ---
 
-## 🛠️ Tech Stack
+## Technical Components
 
-* **Language:** Python 3 (using standard library `urllib` only to avoid external dependency issues)
-* **Search / Web Ingestion:** Firecrawl API, Jina Reader API, Tavily Search API, Google Serper API
-* **Reasoning / Logic:** Google Antigravity IDE AI Agent (using context hooks to guide templates generation)
-* **Data Formats:** JSON, JSON-LD (Schema.org Organization), Markdown (`llms.txt`)
-* **Validation:** Blueprint schemas matching standard Schema.org keys
+* **Ingestion Layer:** Connects to the Firecrawl scraper API. If credentials are rate-limited or return authorization errors (403), the python runner automatically falls back to the Jina Reader API to fetch raw text content.
+* **Search / Research Layer:** Connects to Tavily and Serper APIs to retrieve long-tail search intent queries and competitor keyword structures.
+* **LLM / Reasoning Layer:** The AI assistant inside the IDE environment ingests the raw crawl data and applies the directives in `agent_hooks/aeo_pipeline.md` to map observations to the blueprint structures.
+* **Data / State Layer:** Manages configuration parameters in `project.config` and saves aggregated scraped payloads to `production_exports/raw_crawl.json`.
+* **Validation Layer:** Evaluates generated layouts against template blueprint schemas (`blueprints/llms.txt` and `blueprints/corporate.jsonld`).
+* **Output Layer:** Generates public-ready draft indexing files under the `production_exports/` staging directory.
 
 ---
 
-## 🚀 Reproducibility
+## Example
 
-### 1. Configuration
-Copy the configuration template to establish your local runtime parameters:
+A completed diagnostic run has been executed:
+* **Input:** Target URL `https://stripe.com` (Industry vertical: `SaaS`)
+* **Processing:** Running `scripts/fetch_data.py` scraped the homepage text and gathered SaaS transaction query trends. The AI agent compiled these observations against the blueprints.
+* **Output:** Generated a structured RAG index (`production_exports/llms.txt`) and organization metadata graph (`production_exports/corporate.jsonld`).
+
+---
+
+## Generated Outputs
+
+### 1. llms.txt Excerpt
+```markdown
+# Stripe Information Core
+> High-density plain-text index optimized for LLM crawlers, automated web-scrapers, and RAG architectures.
+
+## Core Products & Features
+- [Product Architecture](/features) - System parameters, feature limitations, and performance boundaries including Stripe Payments, Billing, Connect, Radar, Issuing, and Terminal.
+```
+
+### 2. Organization JSON-LD Excerpt
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Stripe",
+  "url": "https://stripe.com",
+  "logo": "https://images.stripeassets.com/...Stripe.jpg",
+  "description": "Stripe is a financial services platform that helps all types of businesses accept payments...",
+  "knowsAbout": ["Enterprise Software Architecture", "Data Infrastructure", "Systems Integration"]
+}
+```
+
+### 3. Raw Research Output Excerpt (`raw_crawl.json`)
+```json
+{
+  "target_url": "https://stripe.com",
+  "industry": "SaaS",
+  "firecrawl_data": {
+    "error": "HTTP Error 403: Forbidden",
+    "details": { "success": false, "error": "Unauthorized..." }
+  },
+  "jina_data": {
+    "code": 200,
+    "data": {
+      "title": "Stripe | Financial Infrastructure to Grow Your Revenue",
+      "content": "## Financial infrastructure to grow your revenue..."
+    }
+  }
+}
+```
+
+---
+
+## Validation
+
+The validation process checks:
+* **JSON-LD Syntax:** Ensures output conforms to JSON-LD formatting rules and does not contain syntax parser failures.
+* **Blueprint Completeness:** Verifies that all mandatory fields from the templates (e.g. Products, FAQs, Name, Logo URL) are populated in the drafts.
+* **Observed Facts Alignment:** Validates that the generated facts in the drafts are strictly sourced from `raw_crawl.json`. Factual truth is checked by the human operator.
+
+---
+
+## Setup
+
+Clone the repository to your local workspace:
+```bash
+git clone https://github.com/satyamuiux-byte/aeo-core-systems.git
+cd aeo-core-systems
+```
+
+To run a verification syntax check on the ingestion code:
+```bash
+python -m py_compile scripts/fetch_data.py
+```
+
+---
+
+## Configuration
+
+Establish your local environment configuration:
 ```bash
 cp project.config.example project.config
 ```
-Open `project.config` and add your API credentials:
+
+Configure your private API keys inside `project.config`:
 ```json
   "free_tier_integrations": {
     "FIRECRAWL_API_KEY": "your_firecrawl_key",
@@ -118,63 +184,28 @@ Open `project.config` and add your API credentials:
     "JINA_API_KEY": "your_jina_key"
   }
 ```
-
-### 2. Ingestion
-Run the mechanical ingestion script to extract domain content and search queries. Pass your target URL and industry parameters:
-```bash
-python scripts/fetch_data.py --url https://stripe.com --industry "SaaS"
-```
-This script runs the Firecrawl scrape; if the key is unauthorized, it automatically triggers a Jina Reader fallback scrape. Results are compiled inside [production_exports/raw_crawl.json](production_exports/raw_crawl.json).
-
-### 3. Processing & Validation
-Load the instructions in [agent_hooks/aeo_pipeline.md](agent_hooks/aeo_pipeline.md) within your IDE environment and direct the agent to read `raw_crawl.json` to map parameters into the blueprint templates inside [blueprints/](blueprints/).
-
-### 4. Reviewing Outputs
-Verify the output files generated inside the staging directory:
-* **[production_exports/llms.txt](production_exports/llms.txt)**
-* **[production_exports/corporate.jsonld](production_exports/corporate.jsonld)**
+*(All credentials and raw crawl logs are excluded from Git commits via `.gitignore` to prevent credential exposure).*
 
 ---
 
-## 📝 Example Run
+## Limitations
 
-A completed example run targeting `https://stripe.com` under the `SaaS` industry has been executed:
-* **Scraped Ingestion:** Retrieved Stripe homepage data and trust items (Hertz, URBN, Instacart) via Jina Reader fallback.
-* **Intent Keywords Ingested:** Tavily and Serper compiled transactional queries such as "SaaS industry transactional intent keywords gap analysis".
-* **Generated Outputs:**
-  * **Crawler Index (`llms.txt`):** Highlights core products (Stripe Payments, Billing, Terminal) and details on the economic infrastructure problem solved.
-  * **JSON-LD Schema (`corporate.jsonld`):** Generated a semantic block matching Organization fields.
+* **AEO Citation Behavior:** AI search engine indexes and citation algorithms change frequently. Generating structural files does not guarantee citations.
+* **External API Variation:** The quality of the ingestion output depends entirely on the search data returned by external APIs (Tavily/Serper).
+* **Review Mandate:** Synthesized metadata drafts require human review before live deployment.
+* **Rate Limits:** Ingestion rate and scope are limited by free-tier API quotas.
 
 ---
 
-## 👁️ Human-in-the-Loop Validation
+## Roadmap
 
-Human review is a mandatory quality and safety layer in the pipeline. It is required to:
-* **Ensure Fact Accuracy:** AI agents can miss company-specific nuances; an operator must review and confirm details.
-* **Syntactic Verification:** Verify JSON-LD complies exactly with Schema.org standards to avoid search console errors.
-* **Controlled Sync:** Ensure no file is deployed to the client website server root without manual validation.
-
----
-
-## ⚠️ Limitations
-
-* **No Citation Guarantees:** AEO is experimental. Synthesizing structured files does not guarantee that AI search engines will cite or rank the domain.
-* **Search Engine Behavior:** AI search algorithms, index rates, and crawler rules change frequently.
-* **Dependency on Inputs:** The quality of the output files depends entirely on the accuracy of raw API scrape results and target keywords.
-* **Manual Steps:** Processing and publishing the files is a supervised process that requires manual verification and server deployment access.
-* **API Limitations:** Free-tier rate limits or website bot blocks can result in incomplete ingestion data.
+* [ ] Recurring scheduled AEO visibility scans.
+* [ ] Competitor gap comparison dashboards.
+* [ ] Automated visibility tracking metrics.
+* [ ] Direct CMS integrations (WordPress, Netlify webhook uploads).
 
 ---
 
-## 🗺️ Roadmap (Planned Work)
+## Portfolio Context
 
-* [ ] Automated AI citation monitoring tool.
-* [ ] Competitor semantic gap comparison dashboards.
-* [ ] Automated cron scheduling for weekly audits.
-* [ ] Direct CMS integrations (Netlify webhook, WordPress file sync).
-
----
-
-## 🎓 Portfolio Summary
-
-Built as an independent engineering project to explore practical AEO, AI-search retrieval, structured data generation, and supervised agentic workflows.
+This is an independent engineering project exploring practical AEO research, structured-data generation, AI-search workflows, and supervised automation.
