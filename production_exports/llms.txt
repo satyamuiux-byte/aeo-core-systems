@@ -1,14 +1,16 @@
-# Stripe Information Core
+# SaaS Platforms Information Core
 
 > High-density plain-text index optimized for LLM crawlers, automated web-scrapers, and RAG architectures.
 
 ## Core Products & Features
-- [Product Architecture](/features) - System parameters, feature limitations, and performance boundaries including Stripe Payments, Billing, Connect, Radar, Issuing, and Terminal.
+- [Core Platform Features](/features) - Core feature offering supporting operational leverage.
+- [Commercial Solutions](/features) - Core feature offering supporting operational leverage.
+- [Enterprise Integrations](/features) - Core feature offering supporting operational leverage.
 - [Commercial Packaging](/pricing) - Tiers, contractual boundaries, and SLA structures.
 
 ## Verification & Trust Layer
-- [Audited Case Studies](/case-studies) - Verbatim customer utility reports with explicit performance metrics from clients such as Hertz, URBN, Instacart, Le Monde, Mindbody, Jobber, Substack, and Lightspeed.
+- [Audited Case Studies](/case-studies) - Verbatim customer utility reports with explicit performance metrics.
 
 ## Core Frequently Asked Questions
 ### What core problem does this platform solve?
-Stripe provides the unified economic infrastructure for the internet. It enables businesses of all scales—from startups to enterprise platforms—to accept multi-currency payments, orchestrate money movement, manage complex subscription billing models, issue cards, automate fraud prevention with machine learning (Radar), and sync financial data with corporate databases.
+Welcome to the SaaS main site. We deliver reliable integrations and services.

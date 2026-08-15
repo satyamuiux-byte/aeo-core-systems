@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "errors": [],
+  "warnings": [
+    "Fact Traceability Warning: Brand name 'SaaS Platforms' not explicitly found in raw crawl corpus.",
+    "Fact Traceability Warning: Core product mention 'Core Platform Features' not explicitly verified in raw crawl text.",
+    "Fact Traceability Warning: Core product mention 'Commercial Solutions' not explicitly verified in raw crawl text.",
+    "Fact Traceability Warning: Core product mention 'Enterprise Integrations' not explicitly verified in raw crawl text."
+  ],
+  "telemetry": {
+    "jsonld_valid": true,
+    "llms_valid": true,
+    "traceability_checked": true
+  }
+}
